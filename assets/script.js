@@ -4,13 +4,33 @@ var longCategoryString = "german , creole-cajun , dutch , banquet rooms , bistro
 var categoryString = "german , israeli , jamaican , vegetarian , seafood , vietnamese , sichuan , chinese , japanese  , fusion , salad bar , spanish , ethiopian , taiwanese , doughnuts , iranian , canadian , american , french , afghan , swiss , crêperie , surinamese , egyptian , hungarian , barbecue , hot pot , hamburgers , mediterranean , latin american , tapas , british , mexican , asian (other) , buffet , sushi , mongolian , international , mussels , thai , venezuelan , chicken , soup , kosher , steak house , yogurt/juice bar , italian , korean , bosnian , bolivian , dominican , belgian , tunisian , english , pakistani , czech , hawaiian , tibetan , arabian , middle eastern , chilean , shanghai , polish , filipino , sudanese , armenian , burmese , brazilian  bulgarian , soul food , colombian , jewish , pizza , sicilian , organic , greek , finnish , african , syrian , caribbean , russian , grill , take away , fast food , australian , irish , pub food , fondue , lebanese , indonesian , danish , indian , western continental , peruvian , cambodian , snacks , swedish , ice cream parlor , slavic , turkish , argentinean , austrian , exotic , portuguese , moroccan , sandwich , cuban"
 // var apiKeyLinc = "75SvdXNRf0JhAVpoP7d4AWv0kjI96GNa"
 // var locations = "52.50931,13.42936:52.50274,13.43872"
-
+var passengerInitCoordinates = [""];
+let passengerMarker;
 var categories = categoryString.split(" , ")
 var limit = 100;
 var selectedCategories = [];
 var selectedCategoriesIDs = [];
 var validRestaurants = [];
 
+getLocation()
+
+function createPassengerMarker(markerCoordinates, popup) {
+    const passengerMarkerElement = document.createElement('div');
+    passengerMarkerElement.innerHTML = "<img src='img/man-waving-arm_32.png' style='width: 30px; height: 30px';>";
+    return new tt.Marker({ element: passengerMarkerElement }).setLngLat(markerCoordinates).setPopup(popup).addTo(map);
+}
+
+const map = tt.map({
+  key: '75SvdXNRf0JhAVpoP7d4AWv0kjI96GNa',
+  container: 'map',
+  center: passengerInitCoordinates,
+  zoom: 13
+});
+
+passengerMarker = createPassengerMarker(passengerInitCoordinates,
+  new tt.Popup({ offset: 35 }).setHTML("Click anywhere on the map to change passenger location."));
+  
+  passengerMarker.togglePopup();
 
 //hides page 2 and 3 on website load
 $(function () {
@@ -103,6 +123,8 @@ function getLocation() {
 function setPosition(position) {
   lat = position.coords.latitude;
   long = position.coords.longitude;
+  passengerInitCoordinates.push(lat)
+  passengerInitCoordinates.push(long)
   console.log("Latitude: " + lat + "<br>Longitude: " + long);
   console.log(selectedCategories)
   getNearbyRestaurants();
@@ -205,3 +227,14 @@ $("#restart").click(function () {
 //     console.log(data.routes)
 //     })
    
+createPassengerMarker()
+
+function createPassengerMarker(markerCoordinates, popup) {
+    const passengerMarkerElement = document.createElement('div');
+    passengerMarkerElement.innerHTML = "<img src='img/man-waving-arm_32.png' style='width: 30px; height: 30px';>";
+    return new tt.Marker({ element: passengerMarkerElement }).setLngLat(markerCoordinates).setPopup(popup).addTo(map);
+}
+passengerMarker = createPassengerMarker(passengerInitCoordinates,
+  new tt.Popup({ offset: 35 }).setHTML("Click anywhere on the map to change passenger location."));
+  
+  passengerMarker.togglePopup();
