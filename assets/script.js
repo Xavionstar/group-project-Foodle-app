@@ -70,15 +70,23 @@ function getNearbyRestaurants() {
 
 //finds restuarants from list of local restaurant that meet the search criteria
 function findOverlap(data) {
+  validRestaurants = data;
+  var invalidRestaurants = [];
   for (var i = 0; i < data.length; i++) {
     var valid = data[i].poi.categories.filter(value => selectedCategories.includes(value));
     if (valid.length > 0) {
-      validRestaurants.push(data[i]);
+      invalidRestaurants.push(data[i]);
     }
   }
+
+  //remove restaurants that match an 
+  validRestaurants = validRestaurants.filter( function( el ) {
+    return invalidRestaurants.indexOf( el ) < 0;
+  } );
    
   $("#options").empty();
   if(validRestaurants.length === 0){
+
     var noResults = '<h5> No Search Results </h5>';
     var goBackButton = '<button id="goBack"> Go Back </button>'
     $("#options").append(noResults);
