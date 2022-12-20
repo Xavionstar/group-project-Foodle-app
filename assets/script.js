@@ -11,49 +11,13 @@ var limit = 100;
 var selectedCategories = [];
 var selectedCategoriesIDs = [];
 var validRestaurants = [];
-const map = tt.map({
-  key: '75SvdXNRf0JhAVpoP7d4AWv0kjI96GNa',
-  container: 'map',
-  center: passengerInitCoordinates,
-  zoom: 13
-});
 
 
-getLocation()
-
-function createPassengerMarker(markerCoordinates, popup) {
-    const passengerMarkerElement = document.createElement('div');
-    passengerMarkerElement.innerHTML = "<img src='img/man-waving-arm_32.png' style='width: 30px; height: 30px';>";
-    return new tt.Marker({ element: passengerMarkerElement }).setLngLat(markerCoordinates).setPopup(popup).addTo(map);
-}
-
-
-
-passengerMarker = createPassengerMarker(passengerInitCoordinates,
-  new tt.Popup({ offset: 35 }).setHTML("Click anywhere on the map to change passenger location."));
-  
-  passengerMarker.togglePopup();
-
-//   function drawPassengerMarkerOnMap(geoResponse) {
-//     if (geoResponse && geoResponse.addresses
-//         && geoResponse.addresses[0].address.freeformAddress) {
-//         passengerMarker.remove();
-//         passengerMarker = createPassengerMarker(geoResponse.addresses[0].position,
-//             new tt.Popup({ offset: 35 }).setHTML(geoResponse.addresses[0].address.freeformAddress));
-//         passengerMarker.togglePopup();
-//     }
-//   }
-
-//   map.on('click', function (event) {
-//     const position = event.lngLat;
-//     tt.services.reverseGeocode({
-//         key: apiKey,
-//         position: position
-//     })
-//         .then(function (results) {
-//             drawPassengerMarkerOnMap(results);
-//         });
-//   });
+// function createPassengerMarker(markerCoordinates, popup) {
+//   const passengerMarkerElement = document.createElement('div');
+//   passengerMarkerElement.innerHTML = "<img src='img/man-waving-arm_32.png' style='width: 30px; height: 30px';>";
+//   return new tt.Marker({ element: passengerMarkerElement }).setLngLat(markerCoordinates).setPopup(popup).addTo(map);
+// }
 
 //hides page 2 and 3 on website load
 $(function () {
@@ -151,6 +115,18 @@ function setPosition(position) {
   
   console.log("Latitude: " + lat + "<br>Longitude: " + long);
   console.log(selectedCategories)
+  passengerInitCoordinates = [long, lat]
+
+  var map = tt.map({
+    key: '75SvdXNRf0JhAVpoP7d4AWv0kjI96GNa',
+    container: 'map',
+    center: passengerInitCoordinates,
+    zoom: 13
+    });
+    
+    // passengerMarker = createPassengerMarker(passengerInitCoordinates,
+    // new tt.Popup({ offset: 35 }).setHTML("Click anywhere on the map to change passenger location."));
+    // passengerMarker.togglePopup();
   getNearbyRestaurants();
 }
 
@@ -251,3 +227,14 @@ $("#restart").click(function () {
 //     console.log(data.routes)
 //     })
    
+// function setMap(){
+//   tt.setProductInfo('Foodle', '1');
+//   tt.map({
+//       key: '75SvdXNRf0JhAVpoP7d4AWv0kjI96GNa',
+//       container: 'map',
+//       center: [4.876935, 52.360306],
+//   });
+// }
+
+// setMap();
+

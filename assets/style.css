@@ -132,17 +132,6 @@ button:hover {
   margin: 8px;
 }
 
-#mapPlaceHolder {
-  background-color: var(--secondary-color);
-  color: white;
-  height: 400px;
-  width: 600px;
-  line-height: 300px;
-  text-align: center;
-  justify-content: center;
-  margin: auto;
-}
-
 ul {
   columns: 2;
   -webkit-columns: 4;
@@ -152,4 +141,10 @@ ul {
 
 li {
   padding:4px;
+}
+
+#map {
+  height: 400px;
+  width: 600px;
+  margin: 0 auto;
 }
