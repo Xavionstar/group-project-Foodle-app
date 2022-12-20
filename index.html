@@ -8,6 +8,9 @@
 
     <title>FOODLE</title>
     <link rel="stylesheet" href="assets/style.css">
+    <meta name='viewport'
+          content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'/>
+    <link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.21.3/maps/maps.css'/>
 </head>
 
 <body>
@@ -60,7 +63,7 @@
                 </div>
                 <br>
                 <div id="mapPlaceHolder">
-                    <h1> MAP GOES HERE</h1>
+                    <div id='map' class='map'></div>
                 </div>
                 <br>
                 <button id="restart"> Restart </button>
@@ -69,7 +72,7 @@
         </div>
     </section>
 
-
+    <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.21.3/maps/maps-web.min.js'></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
         integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>

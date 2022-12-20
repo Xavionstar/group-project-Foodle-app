@@ -12,6 +12,12 @@ var selectedCategoriesIDs = [];
 var validRestaurants = [];
 
 
+// function createPassengerMarker(markerCoordinates, popup) {
+//   const passengerMarkerElement = document.createElement('div');
+//   passengerMarkerElement.innerHTML = "<img src='img/man-waving-arm_32.png' style='width: 30px; height: 30px';>";
+//   return new tt.Marker({ element: passengerMarkerElement }).setLngLat(markerCoordinates).setPopup(popup).addTo(map);
+// }
+
 //hides page 2 and 3 on website load
 $(function () {
   $("#page2").hide()
@@ -105,6 +111,18 @@ function setPosition(position) {
   long = position.coords.longitude;
   console.log("Latitude: " + lat + "<br>Longitude: " + long);
   console.log(selectedCategories)
+  passengerInitCoordinates = [long, lat]
+
+  var map = tt.map({
+    key: '75SvdXNRf0JhAVpoP7d4AWv0kjI96GNa',
+    container: 'map',
+    center: passengerInitCoordinates,
+    zoom: 13
+    });
+    
+    // passengerMarker = createPassengerMarker(passengerInitCoordinates,
+    // new tt.Popup({ offset: 35 }).setHTML("Click anywhere on the map to change passenger location."));
+    // passengerMarker.togglePopup();
   getNearbyRestaurants();
 }
 
@@ -205,3 +223,14 @@ $("#restart").click(function () {
 //     console.log(data.routes)
 //     })
    
+// function setMap(){
+//   tt.setProductInfo('Foodle', '1');
+//   tt.map({
+//       key: '75SvdXNRf0JhAVpoP7d4AWv0kjI96GNa',
+//       container: 'map',
+//       center: [4.876935, 52.360306],
+//   });
+// }
+
+// setMap();
+
