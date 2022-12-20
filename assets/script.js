@@ -5,12 +5,22 @@ var categoryString = "german , israeli , jamaican , vegetarian , seafood , vietn
 // var apiKeyLinc = "75SvdXNRf0JhAVpoP7d4AWv0kjI96GNa"
 // var locations = "52.50931,13.42936:52.50274,13.43872"
 
+var popupOffsets = {
+  top: [0, 0],
+  bottom: [0, -70],
+  'bottom-right': [0, -70],
+  'bottom-left': [0, -70],
+  left: [25, -35],
+  right: [-25, -35]
+}
+
+var marker;
+
 var categories = categoryString.split(" , ")
 var limit = 100;
 var selectedCategories = [];
-var selectedCategoriesIDs = [];
 var validRestaurants = [];
-
+var map;
 
 // function createPassengerMarker(markerCoordinates, popup) {
 //   const passengerMarkerElement = document.createElement('div');
@@ -41,7 +51,6 @@ function submitCategories() {
   $('.category:checkbox:checked').each(function () {
     selectedCategories.push($(this).attr('value'));
   });
-  test();
 }
 
 // calls API to get the nearby restaurants
@@ -59,28 +68,6 @@ function getNearbyRestaurants() {
     })
 }
 
-
-// gets restaurant IDs for selected Restaurants
-function test() {
-  var weatherURL = "https://api.tomtom.com/search/2/poiCategories.json?key=" + apiKey
-
-  fetch(weatherURL)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      console.log(data);
-      for(var i = 0; i < data.poiCategories.length; i++){
-        if(selectedCategories.includes(data.poiCategories[i].name+ " Restaurant")){
-          console.log("here");
-          selectedCategoriesIDs.push(data.poiCategories[i].id)
-        }
-      }
-      console.log(selectedCategories)
-      console.log(selectedCategoriesIDs)
-    })
-}
-
 //finds restuarants from list of local restaurant that meet the search criteria
 function findOverlap(data) {
   for (var i = 0; i < data.length; i++) {
@@ -89,9 +76,18 @@ function findOverlap(data) {
       validRestaurants.push(data[i]);
     }
   }
+   
   $("#options").empty();
+  if(validRestaurants.length === 0){
+    var noResults = '<h5> No Search Results </h5>';
+    var goBackButton = '<button id="goBack"> Go Back </button>'
+    $("#options").append(noResults);
+    $("#options").append(goBackButton);
+    $("#goBack").click(goBack);
+  } else {
+    $("#selectACard").show();
+  }
   $("#loadingInfo").hide();
-  $("#selectACard").show();
   addSearchResults()
   console.log(validRestaurants);
 }
@@ -113,16 +109,19 @@ function setPosition(position) {
   console.log(selectedCategories)
   passengerInitCoordinates = [long, lat]
 
-  var map = tt.map({
+  map = tt.map({
     key: '75SvdXNRf0JhAVpoP7d4AWv0kjI96GNa',
     container: 'map',
     center: passengerInitCoordinates,
-    zoom: 13
+    zoom: 14
     });
+
+    var homeCoordinates = [long, lat];
+    var marker = new tt.Marker().setLngLat(homeCoordinates).addTo(map);
+
+    // var popup = new tt.Popup({offset: popupOffsets}).setHTML("Home");
+    // marker.setPopup(popup).togglePopup();
     
-    // passengerMarker = createPassengerMarker(passengerInitCoordinates,
-    // new tt.Popup({ offset: 35 }).setHTML("Click anywhere on the map to change passenger location."));
-    // passengerMarker.togglePopup();
   getNearbyRestaurants();
 }
 
@@ -170,18 +169,48 @@ function addOnClickToCards(i) {
     $("#selectedRestaurantURL").text(restaurantLink)
     var distance = Math.round(validRestaurants[i].dist / 3.28084) + " feet away";
     $("#selectedRestaurantDistance").text(distance)
+
+    var restaurantCoordinates = [validRestaurants[i].position.lon, validRestaurants[i].position.lat];
+    if(marker != undefined){
+      marker.remove();
+    }
+    marker = new tt.Marker().setLngLat(restaurantCoordinates).addTo(map);
+    getDirections(restaurantCoordinates);
+    
+    
+    // var popup = new tt.Popup({offset: popupOffsets}).setHTML(validRestaurants[i].poi.name);
+    // marker.setPopup(popup).togglePopup();
+
   });
 }
 
+function getDirections(restaurantCoordinates){
+ var routesURL = "https://api.tomtom.com/routing/1/calculateRoute/" + lat  +"," + long + ":" + restaurantCoordinates[1] +"," + restaurantCoordinates[0] + "/json?key=75SvdXNRf0JhAVpoP7d4AWv0kjI96GNa";
+
+ fetch(routesURL)
+ .then(function (response) {
+   return response.json();
+ })
+ .then(function (data) {
+   console.log(data);
+ })
+}
+
 //hides page 1, and loads page 2 with the checkboxes
-$("#startButton").click(function () {
+$("#startButton").click(openPageTwo);
+
+//hides page 2 and shows page 3
+$("#getLocation").click(openPageThree);
+
+$("#restart").click(restart);
+
+function openPageTwo(){
   $("#page1").hide();
   $("#page2").show();
   loadSearchOptions()
-});
+}
 
-//hides page 2 and shows page 3
-$("#getLocation").click(function () {
+function openPageThree(){
   getLocation();
   $("#page2").hide();
   $("#page3").show();
@@ -194,9 +223,9 @@ $("#getLocation").click(function () {
   $("#selectACard").hide();
   submitCategories()
 
-});
+}
 
-$("#restart").click(function () {
+function restart () {
   //hides page 3 and the detailed info and shows page 1
   $("#page3").hide();
   $("#detailedInfo").hide();
@@ -207,8 +236,12 @@ $("#restart").click(function () {
   //clears selected categories and restaurants so you can start fresh
   selectedCategories = [];
   validRestaurants = [];
-});
+}
 
+function goBack(){
+  restart();
+  openPageTwo();
+}
 // fetchTomTomRoute()
 // function fetchTomTomRoute() {
    
