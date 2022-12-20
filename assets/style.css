@@ -1,3 +1,155 @@
-#title{
-    color: darkblue;
+#title {
+  color: darkblue;
+}
+
+:root {
+  --main-color: #48286f;
+  --main-color-lighter: #763eba;
+  --secondary-color: #1b502c;
+  --radius: 10px;
+}
+
+/* sets font for the whole page */
+* {
+  font-family: Arial, sans-serif;
+}
+
+/* removes margin from body */
+body {
+  margin: 0;
+  text-align: center;
+  height: 100%;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  background-image: linear-gradient(var(--main-color-lighter), var(--main-color));
+  color: white;
+  font-weight: bold;
+  margin-bottom: 10px;
+  line-height: 50%;
+}
+
+button {
+  background-color: var(--main-color);
+  color: white;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+button:hover {
+  background-color: white;
+  color: var(--main-color);
+  border: 2px solid var(--main-color);
+}
+
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.column1 {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.column2 {
+  display: flex;
+  flex-direction: column;
+  flex: 3;
+  margin: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.page {
+  height: 100%;
+}
+
+.sectionHeader {
+  margin: 0px;
+  background-image: linear-gradient(var(--main-color-lighter), var(--main-color));
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  color: white;
+}
+
+#detailedInfo {
+  line-height: 8px;
+  display: none;
+}
+
+.resultCard {
+  background-color: var(--secondary-color);
+  padding: 8px;
+  padding-bottom: 14px;
+  margin: 4px;
+  color: white;
+}
+
+.resultCard a {
+  color: white;
+}
+
+.resultCard:hover {
+  color: var(--secondary-color);
+  background-color: white;
+  padding: 8px;
+  margin: 4px;
+  border: 2px solid var(--secondary-color);
+}
+
+.resultCard:hover a {
+  color: var(--secondary-color);
+}
+
+.resutltCard>h1 {
+  margin: 2px;
+  padding: 0px;
+}
+
+#loading {
+  color: var(--main-color)
+}
+
+.scrollDiv {
+  max-height: 80vh;
+  overflow: auto;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+}
+
+#restart {
+  margin: 8px;
+}
+
+#mapPlaceHolder {
+  background-color: var(--secondary-color);
+  color: white;
+  height: 400px;
+  width: 600px;
+  line-height: 300px;
+  text-align: center;
+  justify-content: center;
+  margin: auto;
+}
+
+ul {
+  columns: 2;
+  -webkit-columns: 4;
+  -moz-columns: 4;
+  list-style-type: none;
+}
+
+li {
+  padding:4px;
 }

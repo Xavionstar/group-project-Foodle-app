@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,19 +9,71 @@
     <title>FOODLE</title>
     <link rel="stylesheet" href="assets/style.css">
 </head>
+
 <body>
-    <section>
-    <h1 id="title">Welcome to Foodle!</h1>
-    <button type="button" class="button" id="startButton"> You Hungry?</button>
+    <header>
+        <h1>
+            FOODLE
+        </h1>
+
+    </header>
+
+    <section id="page1" class="page">
+        <h1 id="title">Welcome to Foodle!</h1>
+        <button type="button" class="button" id="startButton"> You Hungry?</button>
     </section>
-    <section>
+
+    <section id="page2" class="page">
         <h2>What Have You Eaten This Week?</h2>
+        <ul id="searchOptions">
+        </ul>
+        <button id="getLocation"> Search </button>
     </section>
 
-    <script src="assets\script.js"></script>
+    <section id="page3" class="page">
+        <h2> Here's what we found!</h2>
 
-    
-    
+        <div class="row">
+            <section class="column1 scrollDiv">
+                <div class="sectionHeader sticky">
+                    <h1> SEARCH RESULTS </h1>
+                </div>
+                <div id="options">
+                </div>
+            </section>
 
+            <section class="column2">
+                <div class="sectionHeader">
+                    <h1> MAP </h1>
+                </div>
+
+                <h1 id="loadingInfo"> LOADING RESTAURANT... </h1>
+                <h1 id="selectACard"> SELECT A RESTAURANT FOR MORE INFO </h1>
+                <div id="detailedInfo">
+                    <h1 id="selectedRestaurantName"> No Selected Restuarant</h1>
+                    <h4 id="selectedRestaurantDistance"> NA </h4>
+                    <h4 id="selectedRestaurantAddress"> NA </h4>
+                    <h4 id="selectedRestaurantPhone"> NA </h4>
+                    <h4 id="selectedRestaurantURL"> NA </h4>
+                    <h4 id="selectedRestaurantCategories"> NA </h4>
+                    <h4 id="selectedRestaurantLatAndLon"> NA </h4>
+                </div>
+                <br>
+                <div id="mapPlaceHolder">
+                    <h1> MAP GOES HERE</h1>
+                </div>
+                <br>
+                <button id="restart"> Restart </button>
+            </section>
+        </div>
+        </div>
+    </section>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+        integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
+    <script src="assets/script.js"></script>
 </body>
+
 </html>
