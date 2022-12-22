@@ -38,6 +38,11 @@ button {
   border-radius: 10px;
   padding: 10px;
   width: 140px;
+  align-self: center;
+}
+
+#Reviews{
+background-color: white;
 }
 
 button:hover {
@@ -188,6 +193,19 @@ li {
   margin: 10px;
   padding: 80px;
   background-color: cornflowerblue;
+}
+#instructions{
+  border-bottom: solid;
+  border-width: 2px;
+  border-color: #48286f;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+.instructionLine{
+  list-style: circle;
+  margin: 20px;
+ 
 }
 
 
