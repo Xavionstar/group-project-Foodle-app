@@ -37,6 +37,7 @@ button {
   color: white;
   border-radius: 10px;
   padding: 10px;
+  width: 140px;
 }
 
 button:hover {
@@ -171,16 +172,24 @@ li {
 .category:checked + label {
   font-weight: bolder;
 }
-.foodContainer{
-  display: flex;
-  justify-content: center;
-  margin: 70px;
-  flex-direction: column;
-  flex-wrap: wrap;
+
+.foodColumns{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1em;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 .foodTiles{
-/*below is css for reviews.html
-/*starts review page css*/
+ 
+  border: 1px;
+  border-color: lightseagreen;
+  border-style: solid;
+  margin: 10px;
+  padding: 80px;
+  background-color: cornflowerblue;
+}
+
 
 .testimonial-block-vertical-quote {
   background: rgba(23, 121, 186, 0.25);
@@ -254,18 +263,13 @@ li {
 }
   
 
- flex-basis: 20%;
-  border: 1px;
-  border-color: lightseagreen;
-  border-style: solid;
-  margin: 10px;
-  padding: 100px;
-  background-color: cornflowerblue;
-}
+ 
 .labelText{
   font-weight: bold;
   font-size: 30px;
 }
+/*below is css for reviews.html
+/*starts review page css*/
 /* Small smartphones - image placeholders change color */
 @media screen and (max-width: 576px) {
   header {
