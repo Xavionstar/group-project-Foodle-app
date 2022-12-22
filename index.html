@@ -8,6 +8,9 @@
 
     <title>FOODLE</title>
     <link rel="stylesheet" href="assets/style.css">
+    <meta name='viewport'
+          content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'/>
+    <link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.21.3/maps/maps.css'/>
 </head>
 
 <body>
@@ -20,11 +23,20 @@
 
     <section id="page1" class="page">
         <h1 id="title">Welcome to Foodle!</h1>
+        <h3> Finding food made easy!</h3>
+        <hr id = "page1hr">
+        <ol id="instructions">
+            <li>Hit the button below to start.</li>
+            <li>On the next page, select all the restaurant categories you've had recently.</li>
+            <li>Next, after being prompted for you current location, we search your area for new restaurants to try.</li>
+            <li>Lastly, select from our list of search results for more detailed information and the quickest route to get there.</li>
+        </ol>
         <button type="button" class="button" id="startButton"> You Hungry?</button>
     </section>
 
     <section id="page2" class="page">
         <h2>What Have You Eaten This Week?</h2>
+        <hr id = "page2hr">
         <ul id="searchOptions">
         </ul>
         <button id="getLocation"> Search </button>
@@ -47,20 +59,23 @@
                     <h1> MAP </h1>
                 </div>
 
-                <h1 id="loadingInfo"> LOADING RESTAURANT... </h1>
+                <h1 id="loadingInfo"> LOADING RESTAURANTS... </h1>
                 <h1 id="selectACard"> SELECT A RESTAURANT FOR MORE INFO </h1>
                 <div id="detailedInfo">
                     <h1 id="selectedRestaurantName"> No Selected Restuarant</h1>
                     <h4 id="selectedRestaurantDistance"> NA </h4>
                     <h4 id="selectedRestaurantAddress"> NA </h4>
-                    <h4 id="selectedRestaurantPhone"> NA </h4>
-                    <h4 id="selectedRestaurantURL"> NA </h4>
-                    <h4 id="selectedRestaurantCategories"> NA </h4>
-                    <h4 id="selectedRestaurantLatAndLon"> NA </h4>
+                    <div id="extraInfo">
+                        <h4 id="selectedRestaurantPhone"> NA </h4>
+                        <h4 id="selectedRestaurantURL"> NA </h4>
+                        <h4 id="selectedRestaurantCategories"> NA </h4>
+                        <h4 id="selectedRestaurantLatAndLon"> NA </h4>
+                    </div>
+                    <button id="toggleExtraInfo">Show More</button>
                 </div>
                 <br>
                 <div id="mapPlaceHolder">
-                    <h1> MAP GOES HERE</h1>
+                    <div id='map' class='map'></div>
                 </div>
                 <br>
                 <button id="restart"> Restart </button>
@@ -69,7 +84,8 @@
         </div>
     </section>
 
-
+    <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.21.3/maps/maps-web.min.js'></script>
+    <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.21.3/services/services-web.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
         integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>

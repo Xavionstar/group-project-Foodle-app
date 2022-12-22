@@ -1,5 +1,6 @@
 #title {
-  color: darkblue;
+  color: var(--main-color);
+  font-size: 50px;
 }
 
 :root {
@@ -72,6 +73,24 @@ button:hover {
   height: 100%;
 }
 
+#page1 {
+  padding-top: 10vh;
+}
+
+#instructions {
+  width: 50%;
+  margin: 0 auto;
+  padding-bottom: 20px;
+}
+
+#page1hr {
+  width: 70%;
+}
+
+#page2hr {
+  width: 90%;
+}
+
 .sectionHeader {
   margin: 0px;
   background-image: linear-gradient(var(--main-color-lighter), var(--main-color));
@@ -132,24 +151,23 @@ button:hover {
   margin: 8px;
 }
 
-#mapPlaceHolder {
-  background-color: var(--secondary-color);
-  color: white;
-  height: 400px;
-  width: 600px;
-  line-height: 300px;
-  text-align: center;
-  justify-content: center;
-  margin: auto;
-}
-
 ul {
   columns: 2;
-  -webkit-columns: 4;
-  -moz-columns: 4;
+  -webkit-columns: 5;
+  -moz-columns: 5;
   list-style-type: none;
 }
 
 li {
   padding:4px;
+}
+
+#map {
+  height: 400px;
+  width: 600px;
+  margin: 0 auto;
+}
+
+.category:checked + label {
+  font-weight: bolder;
 }
