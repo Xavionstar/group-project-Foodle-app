@@ -1,7 +1,6 @@
 #title {
   color: var(--main-color);
   font-size: 50px;
-  line-height: 10px;
 }
 
 :root {
@@ -75,11 +74,7 @@ button:hover {
 }
 
 #page1 {
-  height: 80vh;
-  display: table-cell;
-  vertical-align:middle;
-  text-align: center;
-  width: 100vh;
+  padding-top: 10vh;
 }
 
 #instructions {
@@ -90,6 +85,10 @@ button:hover {
 
 #page1hr {
   width: 70%;
+}
+
+#page2hr {
+  width: 90%;
 }
 
 .sectionHeader {
@@ -167,4 +166,8 @@ li {
   height: 400px;
   width: 600px;
   margin: 0 auto;
+}
+
+.category:checked + label {
+  font-weight: bolder;
 }
