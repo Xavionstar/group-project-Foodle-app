@@ -56,10 +56,13 @@
                     <h1 id="selectedRestaurantName"> No Selected Restuarant</h1>
                     <h4 id="selectedRestaurantDistance"> NA </h4>
                     <h4 id="selectedRestaurantAddress"> NA </h4>
-                    <h4 id="selectedRestaurantPhone"> NA </h4>
-                    <h4 id="selectedRestaurantURL"> NA </h4>
-                    <h4 id="selectedRestaurantCategories"> NA </h4>
-                    <h4 id="selectedRestaurantLatAndLon"> NA </h4>
+                    <div id="extraInfo">
+                        <h4 id="selectedRestaurantPhone"> NA </h4>
+                        <h4 id="selectedRestaurantURL"> NA </h4>
+                        <h4 id="selectedRestaurantCategories"> NA </h4>
+                        <h4 id="selectedRestaurantLatAndLon"> NA </h4>
+                    </div>
+                    <button id="toggleExtraInfo">Show More</button>
                 </div>
                 <br>
                 <div id="mapPlaceHolder">
@@ -73,6 +76,7 @@
     </section>
 
     <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.21.3/maps/maps-web.min.js'></script>
+    <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.21.3/services/services-web.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
         integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>

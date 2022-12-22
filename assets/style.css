@@ -134,8 +134,8 @@ button:hover {
 
 ul {
   columns: 2;
-  -webkit-columns: 4;
-  -moz-columns: 4;
+  -webkit-columns: 5;
+  -moz-columns: 5;
   list-style-type: none;
 }
 
