@@ -1,9 +1,11 @@
+//listed variables and api keys
 var apiKey = "BFfpEOBgB8gduVen0dobSrMbxnYQiYUG";
 var lat, long;
 var longCategoryString = "german , creole-cajun , dutch , banquet rooms , bistro , israeli , slovak , jamaican , vegetarian , seafood , vietnamese , maltese , sichuan , welsh , chinese , japanese , algerian , californian , fusion , shandong , salad bar , savoyan , spanish , ethiopian , taiwanese , doughnuts , iranian , canadian , american , norwegian , french , hunan , polynesian , afghan , roadside , oriental , swiss , erotic , crêperie , surinamese , egyptian , hungarian , nepalese , barbecue , hot pot , hamburgers , mediterranean , latin american , tapas , british , mexican , guangdong , asian (other) , buffet , sushi , mongolian , international , mussels , thai , venezuelan , rumanian , chicken , soup , kosher , steak house , yogurt/juice bar , italian , korean , cypriot , bosnian , bolivian , dominican , belgian , tunisian , scottish , english , pakistani , czech , hawaiian , maghrib , tibetan , arabian , middle eastern , chilean , shanghai , polish , filipino , sudanese , armenian , burmese , brazilian , scandinavian , bulgarian , soul food , colombian , jewish , pizza , sicilian , organic , greek , basque , uruguayan , cafeterias , finnish , african , corsican , syrian , caribbean , dongbei , russian , grill , take away , fast food , australian , irish , pub food , fondue , lebanese , indonesian , danish , provençal , teppanyakki , indian , mauritian , western continental , peruvian , cambodian , snacks , swedish , macrobiotic , ice cream parlor , slavic , turkish , argentinean , austrian , exotic , portuguese , luxembourgian , moroccan , sandwich , cuban"
 var categoryString = "german , israeli , jamaican , vegetarian , seafood , vietnamese , sichuan , chinese , japanese  , fusion , salad bar , spanish , ethiopian , taiwanese , doughnuts , iranian , canadian , american , french , afghan , swiss , crêperie , surinamese , egyptian , hungarian , barbecue , hot pot , hamburgers , mediterranean , latin american , tapas , british , mexican , asian (other) , buffet , sushi , mongolian , international , mussels , thai , venezuelan , chicken , soup , kosher , steak house , yogurt/juice bar , italian , korean , bosnian , bolivian , dominican , belgian , tunisian , english , pakistani , czech , hawaiian , tibetan , arabian , middle eastern , chilean , shanghai , polish , filipino , sudanese , armenian , burmese , brazilian  bulgarian , soul food , colombian , jewish , pizza , sicilian , organic , greek , finnish , african , syrian , caribbean , russian , grill , take away , fast food , australian , irish , pub food , fondue , lebanese , indonesian , danish , indian , western continental , peruvian , cambodian , snacks , swedish , ice cream parlor , slavic , turkish , argentinean , austrian , exotic , portuguese , moroccan , sandwich , cuban"
 var currentRestaurant = "";
 
+//
 var popupOffsets = {
   top: [0, 0],
   bottom: [0, -70],
@@ -13,6 +15,7 @@ var popupOffsets = {
   right: [-25, -35]
 }
 
+//
 var marker;
 
 var categories = categoryString.split(" , ")
