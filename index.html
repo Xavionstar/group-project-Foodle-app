@@ -2,12 +2,15 @@
 <html lang="en">
 
 <head>
+    <!-- Basic Page Needs-meta-->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>FOODLE</title>
-    <link rel="stylesheet" href="assets/style.css">
+     <!--link to style sheet-->
+     <link rel="stylesheet" href="assets/style.css">
+     <!-- insert bulma/ zurb css other than bootstrap to fullfill requirement-->
     <meta name='viewport'
           content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'/>
     <link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.21.3/maps/maps.css'/>
@@ -15,40 +18,43 @@
 
 <body>
     <header>
-        <h1>
-            FOODLE
-        </h1>
+         <!--App Title--> 
+        <h1>FOODLE</h1>
 
     </header>
-
+<!--The start page welcoming user to foodle and prompting them to continue / begin -->
     <section id="page1" class="page">
         <h1 id="title">Welcome to Foodle!</h1>
-        <h3> Finding food made easy!</h3>
+        <h2> Finding food made easy!</h2>
         <hr id = "page1hr">
+        <!--ordered list of instructions on how to use our app-->
         <ol id="instructions">
             <li>Hit the button below to start.</li>
             <li>On the next page, select all the restaurant categories you've had recently.</li>
             <li>Next, after being prompted for you current location, we search your area for new restaurants to try.</li>
             <li>Lastly, select from our list of search results for more detailed information and the quickest route to get there.</li>
         </ol>
+         <!--this button, once clicked, redirects user to next screen where user checks off foods he/she has eaten the past couple days -->
         <button type="button" class="button" id="startButton"> You Hungry?</button>
     </section>
-
+<!--This is a new section responding to new page content asking user questions and input-->
     <section id="page2" class="page">
         <h2>What Have You Eaten This Week?</h2>
         <hr id = "page2hr">
+        <!-- through jscript options will populate and be checked resulting in leftover options to show-->
         <ul id="searchOptions">
         </ul>
+        <!--this button generates the javascript to populate results based of user input-->
         <button id="getLocation"> Search </button>
     </section>
 
     <section id="page3" class="page">
-        <h2> Here's what we found!</h2>
-
+        <h2> Here's what we found...</h2>
+<!--new populated screen showing results of questionaire and suggesting user ideas to eat-->
         <div class="row">
             <section class="column1 scrollDiv">
                 <div class="sectionHeader sticky">
-                    <h1> SEARCH RESULTS </h1>
+                    <h1> Search Results </h1>
                 </div>
                 <div id="options">
                 </div>
@@ -59,26 +65,31 @@
                     <h1> MAP </h1>
                 </div>
 
-                <h1 id="loadingInfo"> LOADING RESTAURANTS... </h1>
-                <h1 id="selectACard"> SELECT A RESTAURANT FOR MORE INFO </h1>
+                <h1 id="loadingInfo"> Loading Restaurants... </h1>
+                <h1 id="selectACard"> Select a Restaurant for more information </h1>
                 <div id="detailedInfo">
+                    <!--specifics of restaurant will generate for user-->
                     <h1 id="selectedRestaurantName"> No Selected Restuarant</h1>
-                    <h4 id="selectedRestaurantDistance"> NA </h4>
-                    <h4 id="selectedRestaurantAddress"> NA </h4>
+                    <h4 id="selectedRestaurantDistance"> N/A </h4>
+                    <h4 id="selectedRestaurantAddress"> N/A </h4>
                     <div id="extraInfo">
-                        <h4 id="selectedRestaurantPhone"> NA </h4>
-                        <h4 id="selectedRestaurantURL"> NA </h4>
-                        <h4 id="selectedRestaurantCategories"> NA </h4>
-                        <h4 id="selectedRestaurantLatAndLon"> NA </h4>
+                        <h4 id="selectedRestaurantPhone"> N/A </h4>
+                        <h4 id="selectedRestaurantURL"> N/A </h4>
+                        <h4 id="selectedRestaurantCategories"> N/A </h4>
+                        <h4 id="selectedRestaurantLatAndLon"> N/A </h4>
                     </div>
                     <button id="toggleExtraInfo">Show More</button>
                 </div>
                 <br>
+                <!--insert food map image -->
                 <div id="mapPlaceHolder">
                     <div id='map' class='map'></div>
                 </div>
                 <br>
+                <!--click button to restart process-->
                 <button id="restart"> Restart </button>
+                <!-- click button to view reviews of app-->
+                <button id="Reviews"><a href=reviews.html>Reviews</a></button>
             </section>
         </div>
         </div>

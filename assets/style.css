@@ -6,7 +6,7 @@
 :root {
   --main-color: #48286f;
   --main-color-lighter: #763eba;
-  --secondary-color: #1b502c;
+  --secondary-color: #0373f3;
   --radius: 10px;
 }
 
@@ -170,4 +170,84 @@ li {
 
 .category:checked + label {
   font-weight: bolder;
+}
+/*below is css for reviews.html
+/*starts review page css*/
+
+.testimonial-block-vertical-quote {
+  background: rgba(23, 121, 186, 0.25);
+  padding: 1rem;
+  border-radius: 0;
+  margin-bottom: 1.875rem;
+  position: relative;
+}
+
+.testimonial-block-vertical-quote p {
+  margin-bottom: 0;
+}
+
+.testimonial-block-vertical-quote::after {
+  content: '';
+  bottom: -1.25rem;
+  left: 2.25rem;
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 1.25rem 1.125rem 0 1.125rem;
+  border-color: rgba(23, 121, 186, 0.25) transparent transparent transparent;
+  position: absolute;
+}
+
+.testimonial-block-vertical-person {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: 1.65rem;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.testimonial-block-vertical-avatar {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+}
+
+.testimonial-block-vertical-name {
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 0;
+  margin-left: 0.65rem;
+}
+
+.testimonial-block-vertical-info {
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #8a8a8a;
+  margin-bottom: 0;
+  margin-left: 0.65rem;
+}
+/*insert media specifics*/
+
+
+/* Tablets - header changes color */
+@media screen and (max-width: 992px) {
+  header {
+    background: #06a8ee;
+  }
+}
+
+/* Large smartphones - navbar changes color */
+@media screen and (max-width: 768px) {
+  header {
+    background-color: #7205f8;
+  }
+}
+
+/* Small smartphones - image placeholders change color */
+@media screen and (max-width: 576px) {
+  header {
+    background-color: #06f187;
+  }
 }
