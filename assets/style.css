@@ -171,3 +171,24 @@ li {
 .category:checked + label {
   font-weight: bolder;
 }
+.foodContainer{
+  display: flex;
+  justify-content: center;
+  margin: 70px;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.foodTiles{
+  
+ flex-basis: 20%;
+  border: 1px;
+  border-color: lightseagreen;
+  border-style: solid;
+  margin: 10px;
+  padding: 100px;
+  background-color: cornflowerblue;
+}
+.labelText{
+  font-weight: bold;
+  font-size: 30px;
+}
