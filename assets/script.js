@@ -3,8 +3,6 @@ var lat, long;
 var longCategoryString = "german , creole-cajun , dutch , banquet rooms , bistro , israeli , slovak , jamaican , vegetarian , seafood , vietnamese , maltese , sichuan , welsh , chinese , japanese , algerian , californian , fusion , shandong , salad bar , savoyan , spanish , ethiopian , taiwanese , doughnuts , iranian , canadian , american , norwegian , french , hunan , polynesian , afghan , roadside , oriental , swiss , erotic , crêperie , surinamese , egyptian , hungarian , nepalese , barbecue , hot pot , hamburgers , mediterranean , latin american , tapas , british , mexican , guangdong , asian (other) , buffet , sushi , mongolian , international , mussels , thai , venezuelan , rumanian , chicken , soup , kosher , steak house , yogurt/juice bar , italian , korean , cypriot , bosnian , bolivian , dominican , belgian , tunisian , scottish , english , pakistani , czech , hawaiian , maghrib , tibetan , arabian , middle eastern , chilean , shanghai , polish , filipino , sudanese , armenian , burmese , brazilian , scandinavian , bulgarian , soul food , colombian , jewish , pizza , sicilian , organic , greek , basque , uruguayan , cafeterias , finnish , african , corsican , syrian , caribbean , dongbei , russian , grill , take away , fast food , australian , irish , pub food , fondue , lebanese , indonesian , danish , provençal , teppanyakki , indian , mauritian , western continental , peruvian , cambodian , snacks , swedish , macrobiotic , ice cream parlor , slavic , turkish , argentinean , austrian , exotic , portuguese , luxembourgian , moroccan , sandwich , cuban"
 var categoryString = "german , israeli , jamaican , vegetarian , seafood , vietnamese , sichuan , chinese , japanese  , fusion , salad bar , spanish , ethiopian , taiwanese , doughnuts , iranian , canadian , american , french , afghan , swiss , crêperie , surinamese , egyptian , hungarian , barbecue , hot pot , hamburgers , mediterranean , latin american , tapas , british , mexican , asian (other) , buffet , sushi , mongolian , international , mussels , thai , venezuelan , chicken , soup , kosher , steak house , yogurt/juice bar , italian , korean , bosnian , bolivian , dominican , belgian , tunisian , english , pakistani , czech , hawaiian , tibetan , arabian , middle eastern , chilean , shanghai , polish , filipino , sudanese , armenian , burmese , brazilian  bulgarian , soul food , colombian , jewish , pizza , sicilian , organic , greek , finnish , african , syrian , caribbean , russian , grill , take away , fast food , australian , irish , pub food , fondue , lebanese , indonesian , danish , indian , western continental , peruvian , cambodian , snacks , swedish , ice cream parlor , slavic , turkish , argentinean , austrian , exotic , portuguese , moroccan , sandwich , cuban"
 var currentRestaurant = "";
-// var apiKeyLinc = "75SvdXNRf0JhAVpoP7d4AWv0kjI96GNa"
-// var locations = "52.50931,13.42936:52.50274,13.43872"
 
 var popupOffsets = {
   top: [0, 0],
@@ -22,12 +20,6 @@ var limit = 100;
 var selectedCategories = [];
 var validRestaurants = [];
 var map;
-
-// function createPassengerMarker(markerCoordinates, popup) {
-//   const passengerMarkerElement = document.createElement('div');
-//   passengerMarkerElement.innerHTML = "<img src='img/man-waving-arm_32.png' style='width: 30px; height: 30px';>";
-//   return new tt.Marker({ element: passengerMarkerElement }).setLngLat(markerCoordinates).setPopup(popup).addTo(map);
-// }
 
 //hides page 2 and 3 on website load
 $(function () {
@@ -128,9 +120,6 @@ function setPosition(position) {
     var homeCoordinates = [long, lat];
     var marker = new tt.Marker().setLngLat(homeCoordinates).addTo(map);
 
-    // var popup = new tt.Popup({offset: popupOffsets}).setHTML("Home");
-    // marker.setPopup(popup).togglePopup();
-    
   getNearbyRestaurants();
 }
 
@@ -187,10 +176,6 @@ function addOnClickToCards(i) {
    
     getDirections(restaurantCoordinates, validRestaurants[i].poi.name);
     
-    
-    // var popup = new tt.Popup({offset: popupOffsets}).setHTML(validRestaurants[i].poi.name);
-    // marker.setPopup(popup).togglePopup();
-
   });
 }
 
@@ -203,8 +188,9 @@ function getDirections(restaurantCoordinates, currRestaurant){
 })
   .then(function(response) {
       var geojson = response.toGeoJson();
-      if (map.getLayer(currentRestaurant)) {
+      if (map.getLayer(currentRestaurant) || map.getSource(currentRestaurant)) {
       map.removeLayer(currentRestaurant);
+      map.removeSource(currentRestaurant)
     }
       currentRestaurant = currRestaurant;
       map.addLayer({
@@ -245,8 +231,10 @@ $("#startButton").click(openPageTwo);
 //hides page 2 and shows page 3
 $("#getLocation").click(openPageThree);
 
+//clears data and reopens page 1
 $("#restart").click(restart);
 
+// onclick for extra info section of detailed info
 $("#toggleExtraInfo").click(function () {
   if($("#toggleExtraInfo").text() === "Show More"){
     $("#toggleExtraInfo").text("Show Less");
@@ -310,15 +298,4 @@ function goBack(){
 //     .then(function (data){
 //     console.log(data.routes)
 //     })
-   
-// function setMap(){
-//   tt.setProductInfo('Foodle', '1');
-//   tt.map({
-//       key: '75SvdXNRf0JhAVpoP7d4AWv0kjI96GNa',
-//       container: 'map',
-//       center: [4.876935, 52.360306],
-//   });
-// }
-
-// setMap();
 
