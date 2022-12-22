@@ -4,20 +4,19 @@ var longCategoryString = "german , creole-cajun , dutch , banquet rooms , bistro
 var categoryString = "german , israeli , jamaican , vegetarian , seafood , vietnamese , sichuan , chinese , japanese  , fusion , salad bar , spanish , ethiopian , taiwanese , doughnuts , iranian , canadian , american , french , afghan , swiss , crêperie , surinamese , egyptian , hungarian , barbecue , hot pot , hamburgers , mediterranean , latin american , tapas , british , mexican , asian (other) , buffet , sushi , mongolian , international , mussels , thai , venezuelan , chicken , soup , kosher , steak house , yogurt/juice bar , italian , korean , bosnian , bolivian , dominican , belgian , tunisian , english , pakistani , czech , hawaiian , tibetan , arabian , middle eastern , chilean , shanghai , polish , filipino , sudanese , armenian , burmese , brazilian  bulgarian , soul food , colombian , jewish , pizza , sicilian , organic , greek , finnish , african , syrian , caribbean , russian , grill , take away , fast food , australian , irish , pub food , fondue , lebanese , indonesian , danish , indian , western continental , peruvian , cambodian , snacks , swedish , ice cream parlor , slavic , turkish , argentinean , austrian , exotic , portuguese , moroccan , sandwich , cuban"
 // var apiKeyLinc = "75SvdXNRf0JhAVpoP7d4AWv0kjI96GNa"
 // var locations = "52.50931,13.42936:52.50274,13.43872"
-var passengerInitCoordinates = [long, lat];
-let passengerMarker;
+var userInitCoordinates = [long, lat];
+let userMarker;
 var categories = categoryString.split(" , ")
 var limit = 100;
 var selectedCategories = [];
 var selectedCategoriesIDs = [];
 var validRestaurants = [];
+const routeWeight = 9;
+const routeBackgroundWeight = 12;
+var userLocationBatchCoordinates = []
 
 
-// function createPassengerMarker(markerCoordinates, popup) {
-//   const passengerMarkerElement = document.createElement('div');
-//   passengerMarkerElement.innerHTML = "<img src='img/man-waving-arm_32.png' style='width: 30px; height: 30px';>";
-//   return new tt.Marker({ element: passengerMarkerElement }).setLngLat(markerCoordinates).setPopup(popup).addTo(map);
-// }
+
 
 //hides page 2 and 3 on website load
 $(function () {
@@ -110,26 +109,32 @@ function getLocation() {
 function setPosition(position) {
   lat = position.coords.latitude;
   long = position.coords.longitude;
-  passengerInitCoordinates.push(lat)
-  passengerInitCoordinates.push(long)
+  userInitCoordinates.push(lat)
+  userInitCoordinates.push(long)
   
   console.log("Latitude: " + lat + "<br>Longitude: " + long);
   console.log(selectedCategories)
-  passengerInitCoordinates = [long, lat]
+  userInitCoordinates = [long, lat]
 
   var map = tt.map({
     key: '75SvdXNRf0JhAVpoP7d4AWv0kjI96GNa',
     container: 'map',
-    center: passengerInitCoordinates,
+    center: userInitCoordinates,
     zoom: 13
     });
-    
-    // passengerMarker = createPassengerMarker(passengerInitCoordinates,
-    // new tt.Popup({ offset: 35 }).setHTML("Click anywhere on the map to change passenger location."));
-    // passengerMarker.togglePopup();
   getNearbyRestaurants();
+      function createUserMarker(markerCoordinates, popup) {
+  const userMarkerElement = document.createElement('div');
+  userMarkerElement.innerHTML = "<img src='img/man-waving-arm_32.png' style='width: 30px; height: 30px';>";
+  return new tt.Marker({ element: userMarkerElement }).setLngLat(markerCoordinates).setPopup(popup).addTo(map);
 }
+    userMarker = createUserMarker(userInitCoordinates,
+    new tt.Popup({ offset: 35 }).setHTML("Click anywhere on the map to change user location."));
+    userMarker.togglePopup();
 
+   
+}
+ 
 // adds search results to search results section on the left of the page
 function addSearchResults() {
   for (var i = 0; i < validRestaurants.length; i++) {
@@ -174,8 +179,31 @@ function addOnClickToCards(i) {
     $("#selectedRestaurantURL").text(restaurantLink)
     var distance = Math.round(validRestaurants[i].dist / 3.28084) + " feet away";
     $("#selectedRestaurantDistance").text(distance)
+    
+    function updateRestaurantBatchLocations(userCoordinates){
+      var latAndLon = "lat: " + validRestaurants[i].position.lat + " long: " + validRestaurants[i].position.lon;
+      userBatchCoordinates = [latAndLon + ':' + userCoordinates];
+    }
+
+    setRestaurantMapConfig(i);
+    updateRestaurantBatchLocations(userInitCoordinates);
+
   });
+  
 }
+var restaurantMapConfig;
+function setRestaurantMapConfig(i) {
+  restaurantMapConfig = [
+    createRestaurantMapPin(validRestaurants[i].poi.name, [long, lat])];
+
+}
+function createRestaurantMapPin(name, coordinates) {
+  return {
+    name: name,
+    coordinates: coordinates
+  };
+}
+
 
 //hides page 1, and loads page 2 with the checkboxes
 $("#startButton").click(function () {
