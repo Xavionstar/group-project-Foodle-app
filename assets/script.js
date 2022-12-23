@@ -108,7 +108,7 @@ function setPosition(position) {
     key: '75SvdXNRf0JhAVpoP7d4AWv0kjI96GNa',
     container: 'map',
     center: passengerInitCoordinates,
-    zoom: 14
+    zoom: 13
   });
 
   var homeCoordinates = [long, lat];
@@ -169,11 +169,13 @@ function addOnClickToCards(i) {
     if (marker != undefined) {
       marker.remove();
     }
+   
     marker = new tt.Marker().setLngLat(restaurantCoordinates).addTo(map);
 
     getDirections(restaurantCoordinates, validRestaurants[i].poi.name);
 
-  });
+    
+     } )
 }
 
 function getDirections(restaurantCoordinates, currRestaurant) {
@@ -190,6 +192,7 @@ function getDirections(restaurantCoordinates, currRestaurant) {
         map.removeSource(currentRestaurant)
       }
       currentRestaurant = currRestaurant;
+      
       map.addLayer({
         'id': currentRestaurant,
         'type': 'line',
