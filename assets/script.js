@@ -2,7 +2,8 @@
 var apiKey = "BFfpEOBgB8gduVen0dobSrMbxnYQiYUG";
 var lat, long;
 var longCategoryString = "german , creole-cajun , dutch , banquet rooms , bistro , israeli , slovak , jamaican , vegetarian , seafood , vietnamese , maltese , sichuan , welsh , chinese , japanese , algerian , californian , fusion , shandong , salad bar , savoyan , spanish , ethiopian , taiwanese , doughnuts , iranian , canadian , american , norwegian , french , hunan , polynesian , afghan , roadside , oriental , swiss , erotic , crêperie , surinamese , egyptian , hungarian , nepalese , barbecue , hot pot , hamburgers , mediterranean , latin american , tapas , british , mexican , guangdong , asian (other) , buffet , sushi , mongolian , international , mussels , thai , venezuelan , rumanian , chicken , soup , kosher , steak house , yogurt/juice bar , italian , korean , cypriot , bosnian , bolivian , dominican , belgian , tunisian , scottish , english , pakistani , czech , hawaiian , maghrib , tibetan , arabian , middle eastern , chilean , shanghai , polish , filipino , sudanese , armenian , burmese , brazilian , scandinavian , bulgarian , soul food , colombian , jewish , pizza , sicilian , organic , greek , basque , uruguayan , cafeterias , finnish , african , corsican , syrian , caribbean , dongbei , russian , grill , take away , fast food , australian , irish , pub food , fondue , lebanese , indonesian , danish , provençal , teppanyakki , indian , mauritian , western continental , peruvian , cambodian , snacks , swedish , macrobiotic , ice cream parlor , slavic , turkish , argentinean , austrian , exotic , portuguese , luxembourgian , moroccan , sandwich , cuban"
-var categoryString = "Chinese , Japanese , Burgers , Pizza , Indian , Vegetarian , Steak , Seafood , Mexican , Italian , Ethiopian , Greek "
+var categoryString = "Chinese , Japanese , Burgers , Pizza , Indian , Vegetarian , Steak , Seafood , Mexican , Italian"
+var categoryID = [7315012, 7315026, 7315069, 7315036, 7315023, 7315050, 7315045, 7315043, 7315033, 7315025, 7315102];
 var currentRestaurant = "";
 
 //
@@ -32,56 +33,46 @@ $(function () {
 
 // adds checboxes to page 2 from categories list
 function loadSearchOptions() {
-  for (var value of categories) {
-    $('#searchOptions').append(`<li class="foodTiles"><input class="category" type="checkbox" id="${value}" name="cuisine" value="${value}"><label class="labelText" for="${value}">${value}</label></li>`)
+  for (var i = 0; i < categories.length; i++) {
+    $('#searchOptions').append(`<li class="foodTiles"><input class="category" type="checkbox" id="${i}" name="cuisine" value="${categories[i]}"><label class="labelText" for="${categories[i]}">${categories[i]}</label></li>`)
   }
 }
 
 // deletes all checkboxes
-function clearSearchOptions(){
+function clearSearchOptions() {
   $('#searchOptions').empty();
 }
 
 // adds all checked categories to selectedCategories list
 function submitCategories() {
-  $('.category:checkbox:checked').each(function () {
-    selectedCategories.push($(this).attr('value'));
+  $('.category:checkbox:not(:checked)').each(function () {
+    selectedCategories.push(categoryID[$(this).attr('id')]);
   });
+  console.log(selectedCategories)
 }
 
 // calls API to get the nearby restaurants
 function getNearbyRestaurants() {
-  var weatherURL = "https://api.tomtom.com/search/2/nearbySearch/.json?key=" + apiKey + "&lat=" + lat + "&lon=" + long + "&categorySet=7315&limit=" + limit;
-
-  fetch(weatherURL)
+  var categories = selectedCategories.join("%2C");
+  var nearbyRestaurants = "https://api.tomtom.com/search/2/nearbySearch/.json?key=" + apiKey + "&lat=" + lat + "&lon=" + long + "&limit=" + limit + "&categorySet=" + categories;
+  console.log(nearbyRestaurants)
+  fetch(nearbyRestaurants)
     .then(function (response) {
       console.log(response);
       return response.json();
     })
     .then(function (data) {
-      findOverlap(data.results);
       console.log(data);
+      findOverlap(data.results);
     })
 }
 
 //finds restuarants from list of local restaurant that meet the search criteria
 function findOverlap(data) {
   validRestaurants = data;
-  var invalidRestaurants = [];
-  for (var i = 0; i < data.length; i++) {
-    var valid = data[i].poi.categories.filter(value => selectedCategories.includes(value));
-    if (valid.length > 0) {
-      invalidRestaurants.push(data[i]);
-    }
-  }
 
-  //remove restaurants that match an 
-  validRestaurants = validRestaurants.filter( function( el ) {
-    return invalidRestaurants.indexOf( el ) < 0;
-  } );
-   
   $("#options").empty();
-  if(validRestaurants.length === 0){
+  if (validRestaurants.length === 0) {
 
     var noResults = '<h5> No Search Results </h5>';
     var goBackButton = '<button id="goBack"> Go Back </button>'
@@ -118,10 +109,10 @@ function setPosition(position) {
     container: 'map',
     center: passengerInitCoordinates,
     zoom: 14
-    });
+  });
 
-    var homeCoordinates = [long, lat];
-    var marker = new tt.Marker().setLngLat(homeCoordinates).addTo(map);
+  var homeCoordinates = [long, lat];
+  var marker = new tt.Marker().setLngLat(homeCoordinates).addTo(map);
 
   getNearbyRestaurants();
 }
@@ -172,60 +163,60 @@ function addOnClickToCards(i) {
     $("#selectedRestaurantDistance").text(distance)
 
     var restaurantCoordinates = [validRestaurants[i].position.lon, validRestaurants[i].position.lat];
-    if(marker != undefined){
+    if (marker != undefined) {
       marker.remove();
     }
     marker = new tt.Marker().setLngLat(restaurantCoordinates).addTo(map);
-   
+
     getDirections(restaurantCoordinates, validRestaurants[i].poi.name);
-    
+
   });
 }
 
-function getDirections(restaurantCoordinates, currRestaurant){
-  
- tt.services.calculateRoute({
-  key: '75SvdXNRf0JhAVpoP7d4AWv0kjI96GNa',
-  traffic: false,
-  locations: long + "," + lat +":" + restaurantCoordinates[0] +"," + restaurantCoordinates[1]
-})
-  .then(function(response) {
+function getDirections(restaurantCoordinates, currRestaurant) {
+
+  tt.services.calculateRoute({
+    key: '75SvdXNRf0JhAVpoP7d4AWv0kjI96GNa',
+    traffic: false,
+    locations: long + "," + lat + ":" + restaurantCoordinates[0] + "," + restaurantCoordinates[1]
+  })
+    .then(function (response) {
       var geojson = response.toGeoJson();
       if (map.getLayer(currentRestaurant) || map.getSource(currentRestaurant)) {
-      map.removeLayer(currentRestaurant);
-      map.removeSource(currentRestaurant)
-    }
+        map.removeLayer(currentRestaurant);
+        map.removeSource(currentRestaurant)
+      }
       currentRestaurant = currRestaurant;
       map.addLayer({
-          'id': currentRestaurant,
-          'type': 'line',
-          'source': {
-              'type': 'geojson',
-              'data': geojson
-          },
-          'paint': {
-              'line-color': '#4a90e2',
-              'line-width': 8
-          }
+        'id': currentRestaurant,
+        'type': 'line',
+        'source': {
+          'type': 'geojson',
+          'data': geojson
+        },
+        'paint': {
+          'line-color': '#4a90e2',
+          'line-width': 8
+        }
       });
-  });
+    });
 }
 
-function convertGeoJson (data) {
+function convertGeoJson(data) {
   var geoJson = {
     type: "FeatureCollection",
     features: []
-};
-for (var i = 0; i < data.routes[0].legs[0].points.length; i++) {
+  };
+  for (var i = 0; i < data.routes[0].legs[0].points.length; i++) {
     geoJson.features.push({
-        "type": "Feature",
-        "geometry": {
-            "type": "Point",
-            "coordinates": [data.routes[0].legs[0].points[i].longitude, data.routes[0].legs[0].points[i].latitude]
-        }
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [data.routes[0].legs[0].points[i].longitude, data.routes[0].legs[0].points[i].latitude]
+      }
     })
-}
-return [geoJson];
+  }
+  return [geoJson];
 }
 
 //hides page 1, and loads page 2 with the checkboxes
@@ -239,7 +230,7 @@ $("#restart").click(restart);
 
 // onclick for extra info section of detailed info
 $("#toggleExtraInfo").click(function () {
-  if($("#toggleExtraInfo").text() === "Show More"){
+  if ($("#toggleExtraInfo").text() === "Show More") {
     $("#toggleExtraInfo").text("Show Less");
     $("#extraInfo").show();
   } else {
@@ -248,13 +239,13 @@ $("#toggleExtraInfo").click(function () {
   }
 });
 
-function openPageTwo(){
+function openPageTwo() {
   $("#page1").hide();
   $("#page2").show();
   loadSearchOptions()
 }
 
-function openPageThree(){
+function openPageThree() {
   getLocation();
   $("#page2").hide();
   $("#page3").show();
@@ -270,7 +261,7 @@ function openPageThree(){
 
 }
 
-function restart () {
+function restart() {
   //hides page 3 and the detailed info and shows page 1
   $("#page3").hide();
   $("#detailedInfo").hide();
@@ -284,21 +275,7 @@ function restart () {
 }
 
 
-function goBack(){
+function goBack() {
   restart();
   openPageTwo();
 }
-// fetchTomTomRoute()
-// function fetchTomTomRoute() {
-   
-//     var queryURL = `https://api.tomtom.com/routing/1/calculateRoute/${locations}/json?key=${apiKeyLinc}`
-//     fetch(queryURL, {
-//         method: "GET"
-//     })
-//     .then(function (response){
-//         return response.json();
-//     })
-//     .then(function (data){
-//     console.log(data.routes)
-//     })
-
