@@ -112,7 +112,10 @@ function setPosition(position) {
   });
 
   var homeCoordinates = [long, lat];
-  var marker = new tt.Marker().setLngLat(homeCoordinates).addTo(map);
+
+  var element = document.createElement("div")
+  element.id = "homeMarker"
+  var marker = new tt.Marker({ element: element }).setLngLat(homeCoordinates).addTo(map);
 
   getNearbyRestaurants();
 }

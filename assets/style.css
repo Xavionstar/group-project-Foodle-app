@@ -294,3 +294,12 @@ li {
     background-color: #06f187;
   }
 }
+
+#homeMarker {
+  background-image: url("home.png");
+  background-size: cover;
+  width: 10px;
+  height: 10px;
+  padding: 20px;
+  border-radius: 15px;
+}
