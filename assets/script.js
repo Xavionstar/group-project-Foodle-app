@@ -21,7 +21,7 @@ var marker;
 
 var categories = categoryString.split(" , ")
 var limit = 100;
-var selectedCategories = [];
+var selectedCategories = localStorage.getItem("alreadyEaten") || [];
 var validRestaurants = [];
 var map;
 
@@ -31,10 +31,15 @@ $(function () {
   $("#page3").hide()
 });
 
-// adds checboxes to page 2 from categories list
+// adds checkboxes to page 2 from categories list
 function loadSearchOptions() {
   for (var i = 0; i < categories.length; i++) {
-    $('#searchOptions').append(`<li class="foodTiles"><input class="category" type="checkbox" id="${i}" name="cuisine" value="${categories[i]}"><label class="labelText" for="${categories[i]}">${categories[i]}</label></li>`)
+    singleCategoryID = categoryID[i];
+    if (selectedCategories.length === 0 || selectedCategories.indexOf(singleCategoryID) !== -1) {
+      $('#searchOptions').append(`<li class="foodTiles"><input class="category" type="checkbox" id="${i}" name="cuisine" value="${categories[i]}"><label class="labelText" for="${categories[i]}">${categories[i]}</label></li>`)
+    } else {
+      $('#searchOptions').append(`<li class="foodTiles"><input class="category" checked type="checkbox" id="${i}" name="cuisine" value="${categories[i]}"><label class="labelText" for="${categories[i]}">${categories[i]}</label></li>`)
+    }
   }
 }
 
@@ -43,11 +48,15 @@ function clearSearchOptions() {
   $('#searchOptions').empty();
 }
 
-// adds all checked categories to selectedCategories list
+// removes all checked categories from the selectedCategories list
 function submitCategories() {
+  selectedCategories = [];
+
   $('.category:checkbox:not(:checked)').each(function () {
     selectedCategories.push(categoryID[$(this).attr('id')]);
   });
+
+  localStorage.setItem("alreadyEaten", JSON.stringify(selectedCategories));
   console.log(selectedCategories)
 }
 
@@ -278,6 +287,7 @@ function restart() {
   //clears selected categories and restaurants so you can start fresh
   selectedCategories = [];
   validRestaurants = [];
+  localStorage.clear("alreadyEaten")
 }
 
 
