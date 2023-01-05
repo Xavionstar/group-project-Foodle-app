@@ -9,3 +9,8 @@ As an avid restaurant goer, i get tired of eating from the same places. I want a
 ## Screenshot
 ![picture of web page](https://github.com/Xavionstar/group-project-Foodle-app/blob/main/assets/Foodle-screenshot.png?raw=true)
 
+## Link 
+https://xavionstar.github.io/group-project-Foodle-app/
+
+## About the Authors
+Lincoln, Andy and Ashley: Part time coders, full time learners
