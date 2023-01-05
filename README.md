@@ -9,7 +9,3 @@ As an avid restaurant goer, i get tired of eating from the same places. I want a
 ## Screenshot
 ![picture of web page](https://github.com/Xavionstar/group-project-Foodle-app/blob/main/assets/Foodle-screenshot.png?raw=true)
 
-
-1. User inputs recent restaurants
-2. App recognizes restaurant tags and removes matching tags from list
-3. App suggests local remaining choices based on maps api
